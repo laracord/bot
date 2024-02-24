@@ -13,7 +13,8 @@ Laracord is a [micro-framework](https://github.com/laracord/framework) providing
 
 Quickly build functional, elegant bots using [Laravel](https://laravel.com/) alongside [DiscordPHP](https://github.com/discord-php/DiscordPHP).
 
-![Screenshot](https://raw.githubusercontent.com/laracord/laracord.com/main/public/images/laracord-cli.png)
+> [!NOTE]
+> This repository contains the custom bot for the [Laracord Discord](https://laracord.com/discord). If you want to build your own bot using Laracord, visit the main [Laracord repository](https://github.com/laracord/laracord).
 
 ## Features
 
