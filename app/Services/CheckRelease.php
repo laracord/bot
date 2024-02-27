@@ -87,7 +87,7 @@ class CheckRelease extends Service
     {
         return collect($this->endpoints())->mapWithKeys(fn ($endpoint, $repository) => [
             $repository => $this->client()->get($endpoint)->json(),
-        ])->map(fn ($release) => array_pop($release));
+        ]);
     }
 
     /**
@@ -130,7 +130,7 @@ class CheckRelease extends Service
     protected function endpoints(): array
     {
         return collect($this->repositories)->keys()->mapWithKeys(fn ($repository) => [
-            $repository => "https://api.github.com/repos/{$repository}/releases",
+            $repository => "https://api.github.com/repos/{$repository}/releases/latest",
         ])->all();
     }
 }
