@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('releases', function (Blueprint $table) {
             $table->id();
 
-            $table->string('repository');
+            $table->string('repository')->unique();
             $table->integer('latest');
 
             $table->timestamps();
