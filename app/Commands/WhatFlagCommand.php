@@ -57,13 +57,12 @@ class WhatFlagCommand extends Command
 
         $embed = $this
             ->message("**You win!**\nThe correct flag was **{$country['emoji']} {$country['name']}**.")
-            ->title('What Flag?')
             ->fields([
                 'Guesser' => $interaction->user->__toString(),
                 'Options' => $answers,
                 'Time elapsed' => "{$timestamp} seconds",
             ])
-            ->timestamp(now()->toIso8601String())
+            ->timestamp()
             ->success();
 
         $interaction
@@ -84,13 +83,12 @@ class WhatFlagCommand extends Command
 
         $embed = $this
             ->message("**You lose!**\nYou picked **{$answer['emoji']} {$answer['name']}** but the correct flag was **{$country['emoji']} {$country['name']}**.")
-            ->title('What Flag?')
             ->fields([
                 'Guesser' => $interaction->user->__toString(),
                 'Options' => $answers,
                 'Time elapsed' => "{$timestamp} seconds",
             ])
-            ->timestamp(now()->toIso8601String())
+            ->timestamp()
             ->error();
 
         $interaction
@@ -115,7 +113,6 @@ class WhatFlagCommand extends Command
 
         $embed = $this
             ->message("Which flag belongs to **{$country['name']}**?")
-            ->title('What Flag?')
             ->warning();
 
         foreach ($answers as $index => $answer) {
@@ -144,5 +141,13 @@ class WhatFlagCommand extends Command
         $countries = database_path('countries.json');
 
         return $this->countries = collect(File::json($countries));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function message($content = '')
+    {
+        return parent::message($content)->title('What Flag?');
     }
 }
