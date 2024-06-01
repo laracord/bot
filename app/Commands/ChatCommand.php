@@ -78,7 +78,7 @@ class ChatCommand extends Command
                 ->send($message);
         }
 
-        $message->channel->broadcastTyping()->done(function () use ($message, $input) {
+        $message->channel->broadcastTyping()->then(function () use ($message, $input) {
             $key = "{$message->channel->id}.chat.responses";
 
             $input = $this->resolveMentions($message, Str::limit($input, 384));
