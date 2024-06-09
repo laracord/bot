@@ -102,7 +102,7 @@ class SinkCommand extends Command
         $this
             ->message("👋 Hello {$interaction->member->__toString()}!")
             ->title('Wave')
-            ->reply($interaction);
+            ->reply($interaction, ephemeral: true);
     }
 
     /**
@@ -110,11 +110,13 @@ class SinkCommand extends Command
      */
     protected function handleSelect(Interaction $interaction, ?string $type = 'Default'): void
     {
+        $type = ucfirst($type);
+
         $this
             ->message()
             ->title("{$type} Select")
             ->codeField('Selected Values', var_export($interaction->data->values, true))
-            ->reply($interaction);
+            ->reply($interaction, ephemeral: true);
     }
 
     /**
