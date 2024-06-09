@@ -120,25 +120,12 @@ class SinkCommand extends Command
      */
     protected function showModal(Interaction $interaction): void
     {
-        $interaction->showModal('Send a Message', 'exampleModal', [
-            ActionRow::new()
-                ->addComponent(
-                    TextInput::new('Title', TextInput::STYLE_SHORT, 'title')
-                        ->setPlaceholder('Enter a title...')
-                        ->setMinLength(2)
-                        ->setMaxLength(32)
-                        ->setRequired(true)
-                ),
-
-            ActionRow::new()
-                ->addComponent(
-                    TextInput::new('Content', TextInput::STYLE_PARAGRAPH, 'content')
-                        ->setPlaceholder('Enter a message...')
-                        ->setMinLength(5)
-                        ->setMaxLength(256)
-                        ->setRequired(true)
-                ),
-        ], fn (Interaction $interaction, Collection $components) => $this->handleModal($interaction, $components));
+        $this
+            ->modal('Send a Message')
+            ->text('Title', placeholder: 'Enter a title...', minLength: 2, maxLength: 32, required: true)
+            ->paragraph('Content', placeholder: 'Enter a message...', minLength: 5, maxLength: 256, required: true)
+            ->submit(fn (Interaction $interaction, Collection $components) => $this->handleModal($interaction, $components))
+            ->show($interaction);
     }
 
     /**
