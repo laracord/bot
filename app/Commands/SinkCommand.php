@@ -142,7 +142,7 @@ class SinkCommand extends Command
                         ->setMaxLength(256)
                         ->setRequired(true)
                 ),
-        ], fn (Interaction $interaction, Collection $components) => $interaction->acknowledge() && $this->handleModal($interaction, $components));
+        ], fn (Interaction $interaction, Collection $components) => $this->handleModal($interaction, $components));
     }
 
     /**
@@ -160,6 +160,6 @@ class SinkCommand extends Command
             ->field('Author', $interaction->user->__toString())
             ->thumbnail($interaction->user->avatar)
             ->timestamp()
-            ->send($interaction->channel);
+            ->reply($interaction, ephemeral: true);
     }
 }
