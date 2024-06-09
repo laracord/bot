@@ -56,10 +56,6 @@ class SinkCommand extends Command
      */
     public function handle($message, $args)
     {
-        if ($message->channel_id !== '1218368357829574666') {
-            return;
-        }
-
         $this
             ->message('Here is a kitchen sink of examples.')
             ->title('Kitchen Sink')
