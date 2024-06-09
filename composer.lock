@@ -2784,16 +2784,16 @@
         },
         {
             "name": "laracord/framework",
-            "version": "v2.1.4",
+            "version": "v2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracord/framework.git",
-                "reference": "799b61c17b87b4d5b90f84b47a2e7bc6d6b97968"
+                "reference": "116dfb60bc444e8b51c29c7d8f5bc816fd4b8a30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracord/framework/zipball/799b61c17b87b4d5b90f84b47a2e7bc6d6b97968",
-                "reference": "799b61c17b87b4d5b90f84b47a2e7bc6d6b97968",
+                "url": "https://api.github.com/repos/laracord/framework/zipball/116dfb60bc444e8b51c29c7d8f5bc816fd4b8a30",
+                "reference": "116dfb60bc444e8b51c29c7d8f5bc816fd4b8a30",
                 "shasum": ""
             },
             "require": {
@@ -2845,7 +2845,7 @@
             ],
             "support": {
                 "issues": "https://github.com/laracord/framework/issues",
-                "source": "https://github.com/laracord/framework/tree/v2.1.4"
+                "source": "https://github.com/laracord/framework/tree/v2.1.5"
             },
             "funding": [
                 {
@@ -2853,7 +2853,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-09T21:26:41+00:00"
+            "time": "2024-06-09T23:45:24+00:00"
         },
         {
             "name": "laravel-zero/foundation",
