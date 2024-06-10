@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use Carbon\Carbon;
 use Discord\Builders\MessageBuilder;
 use Discord\Parts\Interactions\Interaction;
 use Illuminate\Support\Collection;
@@ -46,21 +47,76 @@ class WhatFlagCommand extends Command
     }
 
     /**
-     * The win action.
+     * The command interaction routes.
      */
-    public function win(Interaction $interaction, array $country, array $answers): void
+    public function interactions(): array
     {
-        $timestamp = now()->diffInMilliseconds($interaction->message->timestamp);
-        $timestamp = number_format($timestamp / 1000, 2);
+        return [
+            'guess:{selected}:{correct}:{options}' => fn (Interaction $interaction, string $selected, string $answer, string $options) => $this->guess($interaction, $selected, $answer, $options),
+        ];
+    }
 
-        $answers = collect($answers)->map(fn ($answer) => $answer['emoji'])->implode(' ');
+    /**
+     * Build a game embed.
+     */
+    public function game(): MessageBuilder
+    {
+        $answer = $this->countries()->random();
+
+        $options = $this->countries()
+            ->where('name', '!=', $answer['name'])
+            ->random(3)
+            ->push($answer)
+            ->shuffle()
+            ->all();
 
         $embed = $this
-            ->message("**You win!**\nThe correct flag was **{$country['emoji']} {$country['name']}**.")
+            ->message("Which flag belongs to **{$answer['name']}**?")
+            ->warning();
+
+        $answers = collect($options)->map(fn ($answer) => $answer['code'])->implode(',');
+
+        foreach ($options as $index => $option) {
+            $embed = $embed->button(
+                'Option '.$index + 1,
+                route: "guess:{$option['code']}:{$answer['code']}:{$answers}",
+                emoji: $option['emoji'],
+                style: 'secondary'
+            );
+        }
+
+        return $embed->build();
+    }
+
+    /**
+     * Handle the guess interaction.
+     */
+    public function guess(Interaction $interaction, string $selected, string $answer, string $options): void
+    {
+        $selected === $answer
+            ? $this->win($interaction, $selected, $options)
+            : $this->lose($interaction, $selected, $answer, $options);
+    }
+
+    /**
+     * The win action.
+     */
+    public function win(Interaction $interaction, string $answer, string $options): void
+    {
+        $timestamp = $this->elapsedTime($interaction->message->timestamp);
+
+        $answer = $this->countries()->get($answer);
+
+        $options = $this->getCountries($options)
+            ->map(fn ($country) => $country['emoji'])
+            ->implode(' ');
+
+        $embed = $this
+            ->message("**You win!**\nThe correct flag was **{$answer['emoji']} {$answer['name']}**.")
             ->fields([
                 'Guesser' => $interaction->user->__toString(),
-                'Options' => $answers,
-                'Time elapsed' => "{$timestamp} seconds",
+                'Options' => $options,
+                'Time elapsed' => $timestamp,
             ])
             ->timestamp()
             ->success();
@@ -74,19 +130,23 @@ class WhatFlagCommand extends Command
     /**
      * The lose action.
      */
-    public function lose(Interaction $interaction, array $answer, array $country, array $answers): void
+    public function lose(Interaction $interaction, string $selected, string $answer, string $options): void
     {
-        $answers = collect($answers)->map(fn ($answer) => $answer['emoji'])->implode(' ');
+        $timestamp = $this->elapsedTime($interaction->message->timestamp);
 
-        $timestamp = now()->diffInMilliseconds($interaction->message->timestamp);
-        $timestamp = number_format($timestamp / 1000, 2);
+        $selected = $this->countries()->get($selected);
+        $answer = $this->countries()->get($answer);
+
+        $options = $this->getCountries($options)
+            ->map(fn ($country) => $country['emoji'])
+            ->implode(' ');
 
         $embed = $this
-            ->message("**You lose!**\nYou picked **{$answer['emoji']} {$answer['name']}** but the correct flag was **{$country['emoji']} {$country['name']}**.")
+            ->message("**You lose!**\nYou picked **{$selected['emoji']} {$selected['name']}** but the correct flag was **{$answer['emoji']} {$answer['name']}**.")
             ->fields([
                 'Guesser' => $interaction->user->__toString(),
-                'Options' => $answers,
-                'Time elapsed' => "{$timestamp} seconds",
+                'Options' => $options,
+                'Time elapsed' => $timestamp,
             ])
             ->timestamp()
             ->error();
@@ -98,35 +158,28 @@ class WhatFlagCommand extends Command
     }
 
     /**
-     * Build a game embed.
+     * Calculate the elapsed time.
      */
-    public function game(): MessageBuilder
+    public function elapsedTime(Carbon $timestamp): string
     {
-        $country = $this->countries()->random();
+        $timestamp = now()->diffInMilliseconds($timestamp) / 1000;
 
-        $answers = $this->countries()
-            ->where('name', '!=', $country['name'])
-            ->random(3)
-            ->push($country)
-            ->shuffle()
-            ->all();
+        $timestamp = $timestamp > 60
+            ? number_format($timestamp / 60, 2).' minutes'
+            : number_format($timestamp, 2).' seconds';
 
-        $embed = $this
-            ->message("Which flag belongs to **{$country['name']}**?")
-            ->warning();
+        return $timestamp;
+    }
 
-        foreach ($answers as $index => $answer) {
-            $embed = $embed->button(
-                'Option '.$index + 1,
-                fn (Interaction $interaction) => $answer === $country
-                    ? $this->win($interaction, $answer, $answers)
-                    : $this->lose($interaction, $answer, $country, $answers),
-                emoji: $answer['emoji'],
-                style: 'secondary'
-            );
-        }
+    /**
+     * Retrieve the country data for a set of codes.
+     */
+    public function getCountries(string|array $codes): Collection
+    {
+        $codes = is_array($codes) ? $codes : explode(',', $codes);
 
-        return $embed->build();
+        return collect($codes)
+            ->map(fn ($code) => $this->countries()->get($code));
     }
 
     /**
@@ -140,7 +193,7 @@ class WhatFlagCommand extends Command
 
         $countries = database_path('countries.json');
 
-        return $this->countries = collect(File::json($countries));
+        return $this->countries = collect(File::json($countries))->keyBy('code');
     }
 
     /**

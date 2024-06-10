@@ -49,6 +49,16 @@ class RockPaperScissors extends Command
     }
 
     /**
+     * The command interaction routes.
+     */
+    public function interactions(): array
+    {
+        return [
+            'play:{choice}' => fn (Interaction $interaction, string $choice) => $this->play($choice, $interaction),
+        ];
+    }
+
+    /**
      * Start a game of rock, paper, scissors.
      */
     public function game(): MessageBuilder
@@ -58,7 +68,7 @@ class RockPaperScissors extends Command
         foreach ($this->choices as $choice => $emoji) {
             $embed = $embed->button(
                 Str::title($choice),
-                fn (Interaction $interaction) => $this->play($choice, $interaction),
+                route: "play:{$choice}",
                 style: 'secondary',
                 emoji: $emoji,
             );
