@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f35460a44c5c092666df7953a0de1df",
+    "content-hash": "a092ade73b59d0872babc8580b212566",
     "packages": [
         {
             "name": "brick/math",
@@ -1684,6 +1684,59 @@
             "time": "2024-05-21T17:42:34+00:00"
         },
         {
+            "name": "illuminate/cookie",
+            "version": "v11.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/cookie.git",
+                "reference": "efe4436370db3a0c64feb68d4eec48dab311e6bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/cookie/zipball/efe4436370db3a0c64feb68d4eec48dab311e6bf",
+                "reference": "efe4436370db3a0c64feb68d4eec48dab311e6bf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-hash": "*",
+                "illuminate/collections": "^11.0",
+                "illuminate/contracts": "^11.0",
+                "illuminate/macroable": "^11.0",
+                "illuminate/support": "^11.0",
+                "php": "^8.2",
+                "symfony/http-foundation": "^7.0",
+                "symfony/http-kernel": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "11.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Cookie\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Cookie package.",
+            "homepage": "https://laravel.com",
+            "support": {
+                "issues": "https://github.com/laravel/framework/issues",
+                "source": "https://github.com/laravel/framework"
+            },
+            "time": "2024-02-16T16:24:29+00:00"
+        },
+        {
             "name": "illuminate/database",
             "version": "v11.10.0",
             "source": {
@@ -2784,20 +2837,21 @@
         },
         {
             "name": "laracord/framework",
-            "version": "v2.1.5",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracord/framework.git",
-                "reference": "116dfb60bc444e8b51c29c7d8f5bc816fd4b8a30"
+                "reference": "9feeba33b1fb7068193559afffd4a2440dc4df7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracord/framework/zipball/116dfb60bc444e8b51c29c7d8f5bc816fd4b8a30",
-                "reference": "116dfb60bc444e8b51c29c7d8f5bc816fd4b8a30",
+                "url": "https://api.github.com/repos/laracord/framework/zipball/9feeba33b1fb7068193559afffd4a2440dc4df7a",
+                "reference": "9feeba33b1fb7068193559afffd4a2440dc4df7a",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^7.5",
+                "illuminate/cookie": "^11.0",
                 "illuminate/database": "^11.0",
                 "illuminate/encryption": "^11.0",
                 "illuminate/hashing": "^11.0",
@@ -2821,6 +2875,9 @@
             },
             "type": "package",
             "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
                 "psr-4": {
                     "Laracord\\": "src/"
                 }
@@ -2845,7 +2902,7 @@
             ],
             "support": {
                 "issues": "https://github.com/laracord/framework/issues",
-                "source": "https://github.com/laracord/framework/tree/v2.1.5"
+                "source": "https://github.com/laracord/framework/tree/v2.2.0"
             },
             "funding": [
                 {
@@ -2853,7 +2910,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-09T23:45:24+00:00"
+            "time": "2024-06-11T18:44:28+00:00"
         },
         {
             "name": "laravel-zero/foundation",
@@ -4156,16 +4213,16 @@
         },
         {
             "name": "php-http/multipart-stream-builder",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/multipart-stream-builder.git",
-                "reference": "f5938fd135d9fa442cc297dc98481805acfe2b6a"
+                "reference": "ed56da23b95949ae4747378bed8a5b61a2fdae24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/multipart-stream-builder/zipball/f5938fd135d9fa442cc297dc98481805acfe2b6a",
-                "reference": "f5938fd135d9fa442cc297dc98481805acfe2b6a",
+                "url": "https://api.github.com/repos/php-http/multipart-stream-builder/zipball/ed56da23b95949ae4747378bed8a5b61a2fdae24",
+                "reference": "ed56da23b95949ae4747378bed8a5b61a2fdae24",
                 "shasum": ""
             },
             "require": {
@@ -4206,9 +4263,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/multipart-stream-builder/issues",
-                "source": "https://github.com/php-http/multipart-stream-builder/tree/1.3.0"
+                "source": "https://github.com/php-http/multipart-stream-builder/tree/1.3.1"
             },
-            "time": "2023-04-28T14:10:22+00:00"
+            "time": "2024-06-10T14:51:55+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -5733,16 +5790,16 @@
         },
         {
             "name": "react/stream",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/stream.git",
-                "reference": "6fbc9672905c7d5a885f2da2fc696f65840f4a66"
+                "reference": "1e5b0acb8fe55143b5b426817155190eb6f5b18d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/stream/zipball/6fbc9672905c7d5a885f2da2fc696f65840f4a66",
-                "reference": "6fbc9672905c7d5a885f2da2fc696f65840f4a66",
+                "url": "https://api.github.com/repos/reactphp/stream/zipball/1e5b0acb8fe55143b5b426817155190eb6f5b18d",
+                "reference": "1e5b0acb8fe55143b5b426817155190eb6f5b18d",
                 "shasum": ""
             },
             "require": {
@@ -5752,7 +5809,7 @@
             },
             "require-dev": {
                 "clue/stream-filter": "~1.2",
-                "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35"
+                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -5799,7 +5856,7 @@
             ],
             "support": {
                 "issues": "https://github.com/reactphp/stream/issues",
-                "source": "https://github.com/reactphp/stream/tree/v1.3.0"
+                "source": "https://github.com/reactphp/stream/tree/v1.4.0"
             },
             "funding": [
                 {
@@ -5807,7 +5864,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-06-16T10:52:11+00:00"
+            "time": "2024-06-11T12:45:25+00:00"
         },
         {
             "name": "symfony/console",

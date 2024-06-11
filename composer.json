@@ -6,7 +6,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.2",
-    "laracord/framework": "^2.1",
+    "laracord/framework": "^2.2",
     "openai-php/client": "^0.10.1"
   },
   "require-dev": {
