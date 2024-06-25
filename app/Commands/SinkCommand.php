@@ -55,7 +55,7 @@ class SinkCommand extends Command
     public function handle($message, $args)
     {
         $this
-            ->message('Here is a kitchen sink of examples.')
+            ->message("Here is a kitchen sink of examples.\nAll interactions are private and can only be seen by you.")
             ->title('Kitchen Sink')
             ->thumbnail('https://i.imgur.com/XettmeQ.png')
             ->color('#e5392a')
