@@ -68,6 +68,7 @@ class CheckRelease extends Service
         $body = Str::of($release['body'])
             ->before('**Full Changelog**:')
             ->replace('## Change log', '')
+            ->replace('## New Contributors', '### New Contributors')
             ->replace("\r\n\r\n", "\r\n")
             ->trim()
             ->toString();
